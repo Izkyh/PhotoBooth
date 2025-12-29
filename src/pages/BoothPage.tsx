@@ -16,7 +16,7 @@ export const BoothPage = () => {
   const [currentLayout] = useState<LayoutType>(initialLayout);
   const [isCapturing, setIsCapturing] = useState(false);
   const [countdown, setCountdown] = useState(0);
-  const [photoCount, setPhotoCount] = useState(0);
+  // const [photoCount, setPhotoCount] = useState(0);
   const [cameraStarted, setCameraStarted] = useState(false);
 
   // horizontal-2x2 = 3 photos, vertical-4 = 4 photos, single = 1 photo
@@ -30,7 +30,6 @@ const maxPhotos =
   const startPhotoSession = () => {
     setCameraStarted(true);
     setPhotos([]);
-    setPhotoCount(0);
     setIsCapturing(true);
     setCountdown(3);
   };
@@ -67,7 +66,6 @@ const maxPhotos =
       return updatedPhotos;
     });
 
-    setPhotoCount(prev => prev + 1);
     setCountdown(0);
   }, [maxPhotos, navigate, currentLayout, currentFilter]);
 
@@ -80,7 +78,6 @@ const maxPhotos =
 
   const resetSession = () => {
     setPhotos([]);
-    setPhotoCount(0);
     setIsCapturing(false);
     setCountdown(0);
     setCameraStarted(false);
