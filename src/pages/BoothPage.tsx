@@ -68,7 +68,7 @@ export const BoothPage = () => {
         return updatedPhotos;
       });
 
-      setPhotoCount((prev) => prev + 1);
+      // setPhotoCount((prev) => prev + 1);
       setCountdown(0);
     },
     [maxPhotos, navigate, currentLayout, currentFilter]
