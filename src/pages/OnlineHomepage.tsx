@@ -35,6 +35,15 @@ export const OnlineHomepage = () => {
               Multiple filters to enhance your photos
             </p>
           </div>
+          <div className="bg-white rounded-2xl p-6 border border-blue-100 shadow-sm">
+            <Wand2 className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+            <h3 className="text-gray-900 font-bold text-lg mb-2">
+              Creative Filters
+            </h3>
+            <p className="text-gray-500 text-sm">
+              Multiple filters to enhance your photos
+            </p>
+          </div>
         </div>
         <div className="flex gap-4 justify-center">
           <button

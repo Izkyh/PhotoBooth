@@ -4,16 +4,20 @@ export const useCamera = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [error, setError] = useState<string>('');
-  const streamRef = useRef<MediaStream | null>(null); // Add ref for cleanup
+  const streamRef = useRef<MediaStream | null>(null);
 
   const startCamera = useCallback(async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { width: 640, height: 480, facingMode: 'user' },
+        video: { 
+          width: { ideal: 1280 }, 
+          height: { ideal: 720 }, 
+          facingMode: 'user' 
+        },
         audio: false,
       });
       
-      streamRef.current = mediaStream; // Store in ref
+      streamRef.current = mediaStream;
       setStream(mediaStream);
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
@@ -32,7 +36,6 @@ export const useCamera = () => {
     }
   }, []);
 
-  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (streamRef.current) {
@@ -51,8 +54,19 @@ export const useCamera = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
 
-    ctx.drawImage(videoRef.current, 0, 0);
-    return canvas.toDataURL('image/jpeg', 0.9);
+    // ✅ FIX MIRROR: Flip horizontal untuk undo selfie mirror effect
+    ctx.save();
+    ctx.scale(-1, 1); // Flip horizontal
+    ctx.drawImage(
+      videoRef.current, 
+      -canvas.width, // Start dari kanan
+      0, 
+      canvas.width, 
+      canvas.height
+    );
+    ctx.restore();
+
+    return canvas.toDataURL('image/jpeg', 0.95);
   }, []);
 
   return {

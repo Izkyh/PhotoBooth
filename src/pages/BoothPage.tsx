@@ -8,6 +8,7 @@ import {
   RotateCcw,
   Home,
   ArrowRight,
+  Trash2,
 } from "lucide-react";
 
 export const BoothPage = () => {
@@ -37,6 +38,13 @@ export const BoothPage = () => {
   };
 
   const captureNext = () => {
+    setIsCapturing(true);
+    setCountdown(3);
+  };
+
+  // ✅ NEW: Retake last photo
+  const retakeLastPhoto = () => {
+    setPhotos((prev) => prev.slice(0, -1)); // Remove last photo
     setIsCapturing(true);
     setCountdown(3);
   };
@@ -71,8 +79,10 @@ export const BoothPage = () => {
     if (currentLayout === "grid-2x3") return "6 photos";
     return "1 photo";
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 to-white">
+      {/* Header */}
       <div className="bg-white sticky top-0 z-50 border-b border-blue-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 h-14 relative flex items-center">
           <div className="flex items-center">
@@ -98,7 +108,7 @@ export const BoothPage = () => {
           <div className="ml-auto">
             <button
               onClick={() => navigate("/")}
-              className="flex items-center gap-2 bg-white text-gray-900 px-3 py-1.5 rounded-lg text-sm font-semibold border border-blue-100 shadow-sm"
+              className="flex items-center gap-2 bg-white text-gray-900 px-3 py-1.5 rounded-lg text-sm font-semibold border border-blue-100 shadow-sm hover:bg-gray-50 transition-all"
             >
               <Home className="w-4 h-4" />
               Home
@@ -106,8 +116,10 @@ export const BoothPage = () => {
           </div>
         </div>
       </div>
+
       <main className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Camera Section */}
           <div className="space-y-4">
             <div className="bg-white rounded-2xl p-6 border border-blue-100 shadow-sm">
               <Camera
@@ -117,37 +129,80 @@ export const BoothPage = () => {
                 shouldStartCamera={cameraStarted}
               />
             </div>
-            <div className="grid grid-cols-2 gap-3">
+
+            {/* Control Buttons */}
+            <div className="space-y-3">
               {photos.length === 0 ? (
+                // Initial Start Button
                 <button
                   onClick={startPhotoSession}
                   disabled={isCapturing}
-                  className="bg-gradient-to-r from-blue-100 to-blue-300 disabled:from-gray-300 disabled:to-gray-400 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-md col-span-2 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-blue-100 to-blue-300 hover:from-blue-200 hover:to-blue-400 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all disabled:cursor-not-allowed"
                 >
                   <CameraIcon className="w-5 h-5" />
-                  Start Session
+                  Start Photo Session
                 </button>
               ) : photos.length < maxPhotos ? (
-                <button
-                  onClick={captureNext}
-                  disabled={isCapturing}
-                  className="bg-gradient-to-r from-blue-100 to-blue-300 disabled:from-gray-300 disabled:to-gray-400 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-md col-span-2 disabled:cursor-not-allowed"
-                >
-                  <CameraIcon className="w-5 h-5" />
-                  {isCapturing
-                    ? `Capturing Photo ${photos.length + 1}/${maxPhotos}`
-                    : `Capture Next Photo (${photos.length + 1}/${maxPhotos})`}
-                </button>
+                // Next & Retake Buttons
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    onClick={captureNext}
+                    disabled={isCapturing}
+                    className="bg-gradient-to-r from-blue-100 to-blue-300 hover:from-blue-200 hover:to-blue-400 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all disabled:cursor-not-allowed"
+                  >
+                    <CameraIcon className="w-5 h-5" />
+                    <span className="text-sm">
+                      {isCapturing
+                        ? "Capturing..."
+                        : `Next (${photos.length + 1}/${maxPhotos})`}
+                    </span>
+                  </button>
+                  <button
+                    onClick={retakeLastPhoto}
+                    disabled={isCapturing}
+                    className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all disabled:cursor-not-allowed"
+                  >
+                    <RotateCcw className="w-5 h-5" />
+                    <span className="text-sm">Retake</span>
+                  </button>
+                </div>
               ) : null}
-              <button
-                onClick={resetSession}
-                className="bg-gradient-to-r from-red-100 to-red-300 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-md col-span-2 md:col-span-1"
-              >
-                <RotateCcw className="w-5 h-5" />
-                Reset Session
-              </button>
+
+              {/* Reset All Button - Always visible after first photo */}
+              {photos.length > 0 && (
+                <button
+                  onClick={resetSession}
+                  className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg transition-all"
+                >
+                  <Trash2 className="w-5 h-5" />
+                  Reset All Photos
+                </button>
+              )}
             </div>
+
+            {/* Progress Indicator */}
+            {photos.length > 0 && (
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-gray-700 font-bold text-sm">
+                    Photo Progress
+                  </span>
+                  <span className="text-2xl font-black text-blue-600">
+                    {photos.length}/{maxPhotos}
+                  </span>
+                </div>
+                <div className="bg-gray-200 rounded-full h-3 overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-full transition-all duration-500 ease-out rounded-full"
+                    style={{
+                      width: `${(photos.length / maxPhotos) * 100}%`,
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
+          {/* Preview Section */}
           <div className="bg-white rounded-2xl p-6 border border-blue-100 shadow-sm">
             <PhotoStrip
               photos={photos}
@@ -155,21 +210,18 @@ export const BoothPage = () => {
               layout={currentLayout}
               showDownload={false}
             />
+            {/* Next to Customize Button */}
             {photos.length >= maxPhotos && !isCapturing && (
               <button
                 onClick={() =>
                   navigate("/customize", {
-                    state: {
-                      photos,
-                      layout: currentLayout,
-                      filter: "none",
-                    },
+                    state: { photos, layout: currentLayout, filter: "none" },
                   })
                 }
-                className="w-full bg-gradient-to-r from-blue-100 to-blue-300 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-md mt-4"
+                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-lg mt-4 transition-all"
               >
                 <ArrowRight className="w-5 h-5" />
-                Next to Customize
+                Continue to Customize
               </button>
             )}
           </div>
