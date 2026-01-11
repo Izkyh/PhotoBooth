@@ -131,7 +131,7 @@ export const LayoutSelectionPage = () => {
           {/* Bottom buttons */}
           <div className="flex justify-center gap-4">
             <button
-              onClick={() => navigate("/online")}
+              onClick={() => navigate("/")}
               className="bg-white hover:bg-gray-50 text-gray-900 font-semibold px-8 py-3 rounded-full border border-gray-300 flex items-center gap-2 text-sm"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -148,8 +148,6 @@ export const LayoutSelectionPage = () => {
         </div>
       </div>
       <FooterHowTo />
-
-      <Footer />
     </div>
   );
 };

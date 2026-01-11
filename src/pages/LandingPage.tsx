@@ -80,8 +80,6 @@ export const LandingPage = () => {
 
       {/* How To Section */}
       <FooterHowTo />
-
-      <Footer />
     </div>
   );
 };

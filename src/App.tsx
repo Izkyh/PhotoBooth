@@ -7,6 +7,7 @@ import { CustomizePage } from './pages/CustomizePage';
 
 function App() {
   return (
+    <div className="min-h-screen font-times">
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} /> {/* Choice screen */}
@@ -16,6 +17,7 @@ function App() {
         <Route path="/customize" element={<CustomizePage />} />
       </Routes>
     </BrowserRouter>
+    </div>
   );
 }
 export default App;

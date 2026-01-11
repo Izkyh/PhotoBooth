@@ -4,8 +4,9 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-200 z-50">
-      <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+    <header className="fixed top-0 w-full bg-white  z-50">
+      <div className="w-full px-[130px] h-16 flex items-center justify-between">
+        {/* Logo kiri, jarak mirip desain */}
         <button
           onClick={() => navigate('/')}
           className="flex-shrink-0"
@@ -13,12 +14,14 @@ export const Navbar = () => {
           <img
             src="/fotoreklogo.png"
             alt="FotoRek Logo"
-            className="h-24 w-auto hover:opacity-80 transition-opacity"
+            className="h-[150px] w-auto "
           />
         </button>
+
+        {/* Tombol kanan */}
         <button
           onClick={() => navigate('/offline')}
-          className="text-sm font-semibold text-gray-700 hover:text-blue-600 px-6 py-2 rounded-full border border-gray-300 hover:border-blue-400 transition-all"
+          className="text-lg font-semibold text-gray-700 px-8 py-2.5 rounded-full border border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all"
         >
           Lokasi Offline
         </button>
