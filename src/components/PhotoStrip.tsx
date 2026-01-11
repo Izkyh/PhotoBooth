@@ -239,67 +239,55 @@ export const PhotoStrip = ({
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <ImageIcon className="w-5 h-5 text-blue-500" />
-          <h3 className="text-lg font-bold text-gray-700">Preview</h3>
+  <div className="space-y-3">
+    <div className="relative bg-gray-50 rounded-xl border border-gray-200 p-4">
+      {isRendering && (
+        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+          <Loader2 className="w-10 h-10 text-gray-700 animate-spin" />
         </div>
-        <span className="text-sm text-gray-500">
-          {photos.length}/{maxPhotos} photos
-        </span>
-      </div>
-
-      <div className="relative bg-gradient-to-br from-gray-50 to-blue-50 p-6 rounded-xl border border-gray-200">
-        {/* Loading Overlay */}
-        {isRendering && (
-          <div className="absolute inset-0 bg-white/80 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
-            <div className="text-center">
-              <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto mb-3" />
-              <p className="text-gray-700 font-semibold">Rendering photos...</p>
-            </div>
-          </div>
-        )}
-
-        {/* Error Display */}
-        {renderError && (
-          <div className="absolute inset-0 bg-red-50 backdrop-blur-sm rounded-xl flex items-center justify-center z-10 border-2 border-red-200">
-            <div className="text-center px-6">
-              <p className="text-red-600 font-bold text-lg mb-2">
-                ⚠️ Rendering Error
-              </p>
-              <p className="text-red-500 text-sm">{renderError}</p>
-              <button
-                onClick={() => setRenderError("")}
-                className="mt-4 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold"
-              >
-                Dismiss
-              </button>
-            </div>
-          </div>
-        )}
-
-        <canvas 
-          ref={canvasRef} 
-          className="mx-auto rounded-lg shadow-lg"
-          style={{
-            maxWidth: "100%",
-            height: "auto",
-            maxHeight: "70vh"
-          }}
-        />
-      </div>
-
-      {showDownload && (
-        <button
-          onClick={downloadPhotoStrip}
-          disabled={isRendering || !!renderError}
-          className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:bg-blue-600 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 shadow-md disabled:cursor-not-allowed"
-        >
-          <Download className="w-5 h-5" />
-          <span>{isRendering ? "Rendering..." : `Download Photo Strip (${canvasSize})`}</span>
-        </button>
       )}
+
+      {renderError && (
+        <div className="absolute inset-0 bg-red-50 rounded-xl flex items-center justify-center z-10 border border-red-300">
+          <div className="text-center px-4">
+            <p className="text-red-600 text-sm font-semibold mb-1">
+              Rendering Error
+            </p>
+            <p className="text-red-500 text-xs mb-3">{renderError}</p>
+            <button
+              onClick={() => setRenderError('')}
+              className="px-3 py-1.5 text-xs rounded-md bg-red-500 text-white font-semibold"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
+
+      <canvas
+        ref={canvasRef}
+        className="mx-auto rounded-lg shadow"
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+          maxHeight: '60vh',
+        }}
+      />
     </div>
-  );
+
+    {showDownload && (
+      <button
+        onClick={downloadPhotoStrip}
+        disabled={isRendering || !!renderError}
+        className="w-full bg-black hover:bg-gray-900 disabled:bg-gray-500 text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2"
+      >
+        <Download className="w-5 h-5" />
+        <span>
+          {isRendering ? 'Rendering...' : `Download Photo Strip (${canvasSize})`}
+        </span>
+      </button>
+    )}
+  </div>
+);
+
 };

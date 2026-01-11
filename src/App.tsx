@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
-import { OnlineHomepage } from './pages/OnlineHomepage'; 
 import { OfflineLocationPage } from './pages/OfflineLocationPage';
 import { LayoutSelectionPage } from './pages/LayoutSelectionPage';
 import { BoothPage } from './pages/BoothPage';
@@ -11,7 +10,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} /> {/* Choice screen */}
-        <Route path="/online" element={<OnlineHomepage />} />
         <Route path="/offline" element={<OfflineLocationPage />} />
         <Route path="/layout" element={<LayoutSelectionPage />} />
         <Route path="/booth" element={<BoothPage />} />
