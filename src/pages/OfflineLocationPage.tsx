@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { MapPin, ExternalLink, Search } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
@@ -28,7 +27,6 @@ const locations = [
 ];
 
 export const OfflineLocationPage = () => {
-  const navigate = useNavigate();
 
   const openMaps = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');

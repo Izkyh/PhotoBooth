@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Camera, Wand2, Download, ArrowRight } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
-import { Footer } from '../components/Footer';
 import { FooterHowTo } from '../components/FooterHowTo';
 
 export const LandingPage = () => {

@@ -1,5 +1,4 @@
 import type { FilterType } from '../types';
-import { Sparkles } from 'lucide-react';
 
 interface FilterPanelProps {
   currentFilter: FilterType;

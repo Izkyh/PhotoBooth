@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Download, ArrowLeft, Palette } from "lucide-react";
+import { Palette } from "lucide-react";
 import type { Photo, FilterType, LayoutType, FrameColor } from "../types";
 import { applyFilter } from "../utils/filters";
 import { FilterPanel } from "../components/FilterPanel";
@@ -188,7 +188,6 @@ export const CustomizePage = () => {
     link.click();
   };
 
-  const canvasSize = layout === "vertical-4" ? "600×1800px" : "1200×1800px";
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
