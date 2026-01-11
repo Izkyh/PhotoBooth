@@ -19,3 +19,10 @@ export interface AppState {
   frameColor: FrameColor;
   customFrameColor: string;
 }
+
+export interface Frame {
+  id: number;
+  name: string;
+  online: number;
+  locations: number;
+}
