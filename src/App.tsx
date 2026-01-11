@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; // Ta
 
 // Import Pages Public
 import { LandingPage } from './pages/LandingPage';
-import { OnlineHomepage } from './pages/OnlineHomepage'; 
 import { OfflineLocationPage } from './pages/OfflineLocationPage';
 import { LayoutSelectionPage } from './pages/LayoutSelectionPage';
 import { BoothPage } from './pages/BoothPage';
@@ -19,9 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* === PUBLIC ROUTES === */}
-        <Route path="/" element={<LandingPage />} /> 
-        <Route path="/online" element={<OnlineHomepage />} />
+        <Route path="/" element={<LandingPage />} /> {/* Choice screen */}
         <Route path="/offline" element={<OfflineLocationPage />} />
         <Route path="/layout" element={<LayoutSelectionPage />} />
         <Route path="/booth" element={<BoothPage />} />
