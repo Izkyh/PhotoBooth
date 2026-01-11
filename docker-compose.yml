@@ -33,6 +33,9 @@ services:
       - ./src:/usr/src/app/src
       - ./public:/usr/src/app/public
       - ./index.html:/usr/src/app/index.html
+      - ./vite.config.ts:/usr/src/app/vite.config.ts
+      - ./tailwind.config.js:/usr/src/app/tailwind.config.js
+      - ./postcss.config.js:/usr/src/app/postcss.config.js
       - /usr/src/app/node_modules 
     depends_on:
       db:
